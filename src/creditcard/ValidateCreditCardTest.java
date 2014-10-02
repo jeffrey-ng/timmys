@@ -1,0 +1,70 @@
+package creditcard;
+
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+public class ValidateCreditCardTest {
+
+    @Test
+   public void testParseDirtyLong() throws Exception {
+
+        //TestCase1
+        String test_case_1 = "12345";
+        assertEquals(ValidateCreditCard.parseDirtyLong(test_case_1),(long)12345);
+
+        //TestCase2
+        String test_case_2 = "";
+        assertEquals(ValidateCreditCard.parseDirtyLong(test_case_2),0);
+
+        //TestCase2
+        String test_case_3 = null;
+        expectNullPointerExceptionDirtyLong(test_case_3);
+
+        //TestCase4
+        String test_case_4 = "-9223372036854775809"; //-2^(63)-1
+        expectNumberFormatExceptionDirtyLong(test_case_4);
+
+        //TestCase5
+        String test_case_5 = "9223372036854775808"; //2^(63)+1
+        expectNumberFormatExceptionDirtyLong(test_case_5);
+
+        //TestCase6
+        String test_case_6 = "-12345";
+        assertEquals(ValidateCreditCard.parseDirtyLong(test_case_6),(long)-12345);
+
+        
+
+
+   }
+
+    @Test
+    public void testIsValid() throws Exception{
+
+
+    }
+
+    private void expectNumberFormatExceptionDirtyLong(String s)
+    {
+        try {
+            ValidateCreditCard.parseDirtyLong(s);
+            fail("NumberFormatException should have been thrown");
+        } catch (NumberFormatException e) {
+            //This should always be executed after the call to parseDirtyLong().
+            assertTrue(true);
+        }
+    }
+
+    private void expectNullPointerExceptionDirtyLong(String s)
+    {
+        try {
+            ValidateCreditCard.parseDirtyLong(s);
+            fail("NumberFormatException should have been thrown");
+
+        } catch (NullPointerException e) {
+            //This should always be executed after the call to parseDirtyLong().
+            assertTrue(true);
+        }
+    }
+
+}
